@@ -20,3 +20,12 @@ Les données contiennent les informations suivantes:
 - Heure de la visite.
 
 Il faut réaliser les calcules demandés et afficher les résultats dans un projet __[VueJS](https://vuejs.org/)__. Il n'y a pas d'autre consigne autre que de laisser la créativité faire son travail.
+
+
+
+Variables d'environnement
+``` powershell
+netlify env:set MONGODB_URI mongodb://localhost:27017/symmetrical-couscous
+netlify env:set MONGODB_COLLECTION_GEOLOC geolocData
+netlify env:set MONGODB_COLLECTION_VISIT visitData
+```
