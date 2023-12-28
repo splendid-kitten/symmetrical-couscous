@@ -1,10 +1,11 @@
 <!-- eslint-disable vue/multi-word-component-names -->
 <script setup>
-import { reactive, ref, watch } from 'vue';
+import { onMounted, reactive, ref, watch } from 'vue';
 import { useLayout } from '@/layout/composables/layout';
 
 const { isDarkTheme } = useLayout();
 
+const visits = ref(null);
 const lineData = reactive({
     labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
     datasets: [
@@ -15,21 +16,25 @@ const lineData = reactive({
             backgroundColor: '#2f4860',
             borderColor: '#2f4860',
             tension: 0.4
-        },
-        {
-            label: 'Second Dataset',
-            data: [28, 48, 40, 19, 86, 27, 90],
-            fill: false,
-            backgroundColor: '#00bb7e',
-            borderColor: '#00bb7e',
-            tension: 0.4
         }
     ]
 });
 
 const lineOptions = ref(null);
 
-
+onMounted(() => {
+    const fetchData = async () => {
+        try {
+            const response = await axios.get('/.netlify/functions/fetch-visits');
+            console.log(response.data);
+            visits.value = response.data;
+        } catch (error) {
+            console.log('Some wild error')
+            console.error(error);
+        }
+    }
+    fetchData();
+});
 
 const applyLightTheme = () => {
     lineOptions.value = {
@@ -135,6 +140,17 @@ export default {
                 console.error(error);
                 this.response = error.message;
             }
+        },
+        async fetchVisits() {
+            try {
+                const response = await axios.get('/.netlify/functions/fetch-visits');
+                console.log(response.data);
+                this.response = response.data;
+            } catch (error) {
+                console.log('Some wild error')
+                console.error(error);
+                this.response = error.message;
+            }
         }
     }
 }
@@ -191,10 +207,13 @@ export default {
           <div class="card">
               <h5>Recent Visits</h5>
               <DataTable :value="visits" :rows="5" :paginator="true" responsiveLayout="scroll">
-                  <Column field="ID" header="ID" style="width: 35%"></Column>
-                  <Column field="lat" header="lat" style="width: 35%"></Column>
-                  <Column field="long" header="long" style="width: 35%"></Column>
-                  <Column field="time" header="time" :sortable="true" style="width: 35%"></Column>
+                  <Column field="propulso_id" header="ID" style="width: 35%"></Column>
+                  <Column field="lat" header="Latitude" style="width: 35%"></Column>
+                  <Column field="lng" header="Longitude" style="width: 35%"></Column>
+                  <Column field="start_time" header="Début" :sortable="true" style="width: 35%"></Column>
+                  <Column field="end_time" header="Fin" :sortable="true" style="width: 35%"></Column>
+                  <Column field="duration" header="Durée" :sortable="true" style="width: 35%"></Column>
+                  <Column field="date" header="Date" :sortable="true" style="width: 35%"></Column>
                 </DataTable>
           </div>
           
@@ -209,8 +228,8 @@ export default {
     <div class="card">
         <h5>Serverless Functions</h5>
         <Button label="Run Hello World" class="mr-2 mb-2" @click="updateData" />
-        <Button label="Fetch Database" class="mr-2 mb-2" @click="fetchData" />
-        <Button label="Primary" class="mr-2 mb-2" />
+        <Button label="Fetch Geoloc" class="mr-2 mb-2" @click="fetchData" />
+        <Button label="Fetch Visit" class="mr-2 mb-2" @click="fetchVisits" />
     </div>
 
     <div class="card">
