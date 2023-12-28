@@ -117,24 +117,24 @@ watch(
 import axios from 'axios';
 
 export default {
+    data() {
+    return {
+      response: null, // Add this line
+    };
+  },
   methods: {
     async runFunction() {
-      try {
-        const response = await axios.get('/.netlify/functions/hello-world');
         try {
-            console.log(response.data);
-            const data = JSON.parse(response.data);
-            this.response = data;
-            console.log(data);
-            } catch (error) {
-                console.error('Error parsing JSON:', error);
-            }
-      } catch (error) {
+        const response = await axios.get('/.netlify/functions/hello-world');
+        console.log(response.data);
+        this.response = response.data;
+        } catch (error) {
+        console.log('Some wild error')
         console.error(error);
         this.response = error.message;
-      }
+        }
     }
-  }
+    }
 }
 </script>
 
