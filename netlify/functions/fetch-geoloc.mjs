@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import mongoose from 'mongoose';
 
 const GeolocData = mongoose.model('GeolocData', new mongoose.Schema({}, { strict: false }), process.env.MONGODB_COLLECTION_GEOLOC);
