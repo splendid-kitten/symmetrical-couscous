@@ -1,20 +1,7 @@
-<script setup>
-
-</script>
+<script setup></script>
 
 <template>
-  <div class="container">
-    <h1>Some wild Hello World!</h1>
-
-  </div>
-  
+    <router-view />
 </template>
 
-<style scoped>
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 100vh;
-  }
-</style>
+<style scoped></style>
