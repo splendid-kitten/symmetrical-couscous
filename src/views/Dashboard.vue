@@ -123,17 +123,28 @@ export default {
     };
   },
   methods: {
-    async runFunction() {
-        try {
-        const response = await axios.get('/.netlify/functions/hello-world');
-        console.log(response.data);
-        this.response = response.data;
-        } catch (error) {
-        console.log('Some wild error')
-        console.error(error);
-        this.response = error.message;
+        async updateData() {
+            try {
+                const response = await axios.get('/.netlify/functions/hello-world');
+                console.log(response.data);
+                this.response = response.data;
+            } catch (error) {
+                console.log('Some wild error')
+                console.error(error);
+                this.response = error.message;
+            }
+        },
+        async fetchData() {
+            try {
+                const response = await axios.get('/.netlify/functions/fetch-geoloc');
+                console.log(response.data);
+                this.response = response.data;
+            } catch (error) {
+                console.log('Some wild error')
+                console.error(error);
+                this.response = error.message;
+            }
         }
-    }
     }
 }
 </script>
@@ -220,9 +231,8 @@ export default {
     </div>
     <div class="card">
         <h5>Serverless Functions</h5>
-        <Button label="Run Hello World" class="mr-2 mb-2" @click="runFunction" />
-
-        <Button label="Primary" class="mr-2 mb-2" />
+        <Button label="Run Hello World" class="mr-2 mb-2" @click="updateData" />
+        <Button label="Fetch Database" class="mr-2 mb-2" @click="fetchData" />
         <Button label="Primary" class="mr-2 mb-2" />
     </div>
 
