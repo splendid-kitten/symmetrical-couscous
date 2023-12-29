@@ -25,18 +25,44 @@ Les données contiennent les informations suivantes:
 Il faut réaliser les calcules demandés et afficher les résultats dans un projet __[VueJS](https://vuejs.org/)__. Il n'y a pas d'autre consigne autre que de laisser la créativité faire son travail.
 
 ## Utilisation de la solution
-Installer Docker
 
-Installer les dépendances
+Les étapes suivantes permettent de démarrer la solution.
 
-Configurer les variables d'environnement
+### Pré-requis
+- __[Node.js 20.10.0](https://nodejs.org/en)__
+- __[Docker Desktop](https://www.docker.com/products/docker-desktop/)__
+- __[Netlify CLI](https://www.netlify.com/platform/core/cli/)__
+
+### Base de données
+La base de données de développement est déployée dans Docker. Elle peut être démarrée à l'aide de la commande
+``` powershell
+docker-compose up -d
+```
+
+### Application Web
+Les dépendances peuvent être installées à l'aide de
+``` powershell
+npm install
+```
+
+Afin de pouvoir exécuter les fonctions _serverless_ de Netlify, l'application est démarrée à l'aide du __[Netlify CLI](https://www.netlify.com/platform/core/cli/)__.
+
+
+Configurer les variables d'environnement de netlify
 ``` powershell
 netlify env:set MONGODB_URI mongodb://localhost:27017/symmetrical-couscous
 netlify env:set MONGODB_COLLECTION_GEOLOC geolocData
 netlify env:set MONGODB_COLLECTION_VISIT visitData
 ```
 
-Lancer la DB
+L'application web peut ensuite être démarrée à l'aide de
+``` powershell
+netlify dev
+```
+
+Lors de la première exécution, il faut générer les données de visites à partir des données de géolocalisation. Un bouton permet d'exécuter la fonction à partir du tableau des visites. Il en résulte une nouvelle collection dans la base de données avec les données voulues qui seront utilisées dans le tableau de bord.
+
+![Visits Table](https://github.com/splendid-kitten/symmetrical-couscous/blob/main/assets/visits_table.png)
 
 Générer les visites
 
@@ -77,9 +103,9 @@ Une visite est donc composée de la façon suivante:
 }
 ```
 
-Chaque visite est ensuite envoyé dans la base de données dans une nouvelle collection qui sera utilisée pour mettre à jour le UI.
+Chaque visite est ensuite envoyé dans la base de données dans une nouvelle collection qui sera utilisée pour mettre à jour le UI. Les métriques sont donc présentées dans différentes cartes et dans un graphique.
+La durée moyenne d'une visite, le nombre total de visites et finalement un graphique qui montre le nombre de visites et le nombre de visiteurs à chaque jour. L'affichage est plus ou moins intéressant considérant qu'il n'y a que deux jours de données.
 
-
-
+![Visits Table](https://github.com/splendid-kitten/symmetrical-couscous/blob/main/assets/dashboard.png)
 
 
