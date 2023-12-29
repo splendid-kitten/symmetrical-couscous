@@ -14,11 +14,18 @@ export const handler = async (event, context) => {
     });
 
     // Fetch the geolocData collection
-    const data = await VisitData.find().limit(10);
+    const avgDuration = await VisitData.aggregate([
+      {
+        $group: {
+          _id: null,
+          avgDuration: { $avg: "$duration" }
+        }
+      }
+    ]);
 
     return {
       statusCode: 200,
-      body: JSON.stringify(data),
+      body: JSON.stringify(Math.round(avgDuration[0]?.avgDuration || 0)),
     };
   } catch (error) {
     return { statusCode: 500, body: error.toString() };
