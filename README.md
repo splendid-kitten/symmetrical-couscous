@@ -64,10 +64,6 @@ Lors de la première exécution, il faut générer les données de visites à pa
 
 ![Visits Table](https://github.com/splendid-kitten/symmetrical-couscous/blob/main/assets/visits_table.png)
 
-Générer les visites
-
-Updater le UI
-
 ## Développement
 
 La section suivante détaille les différents éléments et logiques de la solution.
@@ -76,8 +72,7 @@ La section suivante détaille les différents éléments et logiques de la solut
 Le projet est composée d'un interface développé avec __[VueJS](https://vuejs.org/)__ et en utilisant les éléments de UI de __[PrimeVue](https://primevue.org/)__. Le backend est composé de _serverless functions_ de __[Netlify](https://www.netlify.com/)__ avec pour but de se servir de ce dernier dans l'optique d'un déploiement en production. Les données sont stockées dans une base de données __[MongoDB](https://www.mongodb.com/fr-fr)__ qui est utilisée dans le projet avec l'ODM __[Mongoose](https://mongoosejs.com/)__. Durant le développement, le tout est déployé dans __[Docker Desktop](https://www.docker.com/products/docker-desktop/)__ à l'aide de __[Docker-Compose](https://docs.docker.com/compose/)__.
 
 ### Github Actions
-
-en exécutant le linter et les tests dans le projet. Les runners de mon organisation (splendid-kitten) sont actifs sur mon propre serveur.
+Le projet est créé dans mon organisation sur Github afin de profiter des _runners_ que j'ai configuré dans mon environnement personnel. Ainsi, les Github Actions sont fonctionnelles et exécutent le linter et les tests dans le projet lors d'un push. Je n'ai toutefois pas été plus loins dans les tests pour me concentrer sur l'application.
 
 ### Traitement des données
 
