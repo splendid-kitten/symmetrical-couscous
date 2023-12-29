@@ -6,15 +6,26 @@ import { useLayout } from '@/layout/composables/layout';
 const { isDarkTheme } = useLayout();
 
 const visits = ref(null);
+const totalVisits = ref(null);
+const avgVisitDuration = ref(null);
+
 const lineData = reactive({
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: [],
     datasets: [
         {
-            label: 'First Dataset',
-            data: [65, 59, 80, 81, 56, 55, 40],
+            label: 'Visites par jour',
+            data: [],
             fill: false,
             backgroundColor: '#2f4860',
             borderColor: '#2f4860',
+            tension: 0.4
+        },
+        {
+            label: 'Visiteurs par jour',
+            data: [],
+            fill: false,
+            backgroundColor: '#00bb7e',
+            borderColor: '#00bb7e',
             tension: 0.4
         }
     ]
@@ -25,9 +36,26 @@ const lineOptions = ref(null);
 onMounted(() => {
     const fetchData = async () => {
         try {
-            const response = await axios.get('/.netlify/functions/fetch-visits');
-            console.log(response.data);
-            visits.value = response.data;
+            const [recentVisitsRes, totalVisitRes, visitorsPerDayRes, visitsPerDayRes, avgVisitDurationRes] = await Promise.all([
+                axios.get('/.netlify/functions/fetch-recent-visits'),
+                axios.get('/.netlify/functions/get-visits-total-amount'),
+                axios.get('/.netlify/functions/get-visitors-per-day'),
+                axios.get('/.netlify/functions/get-visits-per-day'),
+                axios.get('/.netlify/functions/get-avg-visit-duration')
+            ]);
+
+            // Update lineData labels and data with visits per day
+            lineData.labels = visitsPerDayRes.data.map(item => item._id);
+            lineData.datasets[0].data = visitsPerDayRes.data.map(item => item.count);
+            lineData.datasets[1].data = visitorsPerDayRes.data.map(item => item.count);
+
+            // Update Recent Visits
+            visits.value = recentVisitsRes.data;
+
+            totalVisits.value = totalVisitRes.data;
+
+            avgVisitDuration.value = avgVisitDurationRes.data;
+
         } catch (error) {
             console.log('Some wild error')
             console.error(error);
@@ -151,7 +179,62 @@ export default {
                 console.error(error);
                 this.response = error.message;
             }
-        }
+        },
+        async genVisits() {
+            try {
+                const response = await axios.get('/.netlify/functions/generate-visit-data');
+                console.log(response.data);
+                this.response = response.data;
+            } catch (error) {
+                console.log('Some wild error')
+                console.error(error);
+                this.response = error.message;
+            }
+        },
+        async getVisitorsPerDay() {
+            try {
+                const response = await axios.get('/.netlify/functions/get-visitors-per-day');
+                console.log(response.data);
+                this.response = response.data;
+            } catch (error) {
+                console.log('Some wild error')
+                console.error(error);
+                this.response = error.message;
+            }
+        },
+        async getVisitsPerDay() {
+            try {
+                const response = await axios.get('/.netlify/functions/get-visits-per-day');
+                console.log(response.data);
+                this.response = response.data;
+            } catch (error) {
+                console.log('Some wild error')
+                console.error(error);
+                this.response = error.message;
+            }
+        },
+        async getVisitAvgDuration() {
+            try {
+                const response = await axios.get('/.netlify/functions/get-avg-visit-duration');
+                console.log(response.data);
+                this.response = response.data;
+            } catch (error) {
+                console.log('Some wild error')
+                console.error(error);
+                this.response = error.message;
+            }
+        },
+        async getVisitTotalAmount() {
+            try {
+                const response = await axios.get('/.netlify/functions/get-visits-total-amount');
+                console.log(response.data);
+                this.response = response.data;
+            } catch (error) {
+                console.log('Some wild error')
+                console.error(error);
+                this.response = error.message;
+            }
+        },
     }
 }
 </script>
@@ -162,50 +245,31 @@ export default {
           <div class="card mb-0">
               <div class="flex justify-content-between mb-3">
                   <div>
-                      <span class="block text-500 font-medium mb-3">Visits Today</span>
-                      <div class="text-900 font-medium text-xl">152</div>
-                  </div>
-                  <div class="flex align-items-center justify-content-center bg-blue-100 border-round" style="width: 2.5rem; height: 2.5rem">
-                      <i class="pi pi-shopping-cart text-blue-500 text-xl"></i>
-                  </div>
-              </div>
-              <span class="text-green-500 font-medium">24 new </span>
-              <span class="text-500">since last visit</span>
-          </div>
-      </div>
-      <div class="col-12 lg:col-6 xl:col-3">
-          <div class="card mb-0">
-              <div class="flex justify-content-between mb-3">
-                  <div>
-                      <span class="block text-500 font-medium mb-3">Average Visits</span>
-                      <div class="text-900 font-medium text-xl">$2.100</div>
+                      <span class="block text-500 font-medium mb-3">Durée moyenne d'une visite</span>
+                      <div class="text-900 font-medium text-xl">{{ avgVisitDuration }} secondes</div>
                   </div>
                   <div class="flex align-items-center justify-content-center bg-orange-100 border-round" style="width: 2.5rem; height: 2.5rem">
-                      <i class="pi pi-map-marker text-orange-500 text-xl"></i>
+                      <i class="pi pi-clock text-orange-500 text-xl"></i>
                   </div>
               </div>
-              <span class="text-green-500 font-medium">%52+ </span>
-              <span class="text-500">since last week</span>
           </div>
       </div>
       <div class="col-12 lg:col-6 xl:col-3">
           <div class="card mb-0">
               <div class="flex justify-content-between mb-3">
                   <div>
-                      <span class="block text-500 font-medium mb-3">Total Visits</span>
-                      <div class="text-900 font-medium text-xl">28441</div>
+                      <span class="block text-500 font-medium mb-3">Nombre de visite total</span>
+                      <div class="text-900 font-medium text-xl">{{ totalVisits }} visites</div>
                   </div>
                   <div class="flex align-items-center justify-content-center bg-cyan-100 border-round" style="width: 2.5rem; height: 2.5rem">
-                      <i class="pi pi-inbox text-cyan-500 text-xl"></i>
+                      <i class="pi pi-user text-cyan-500 text-xl"></i>
                   </div>
               </div>
-              <span class="text-green-500 font-medium">520 </span>
-              <span class="text-500">newly registered</span>
           </div>
       </div>
       <div class="col-12 xl:col-6">
           <div class="card">
-              <h5>Recent Visits</h5>
+              <h5>Visites récentes</h5>
               <DataTable :value="visits" :rows="5" :paginator="true" responsiveLayout="scroll">
                   <Column field="propulso_id" header="ID" style="width: 35%"></Column>
                   <Column field="lat" header="Latitude" style="width: 35%"></Column>
@@ -220,7 +284,7 @@ export default {
       </div>
       <div class="col-12 xl:col-6">
           <div class="card">
-              <h5>Visits Overview</h5>
+              <h5>Visites et visiteurs quotidiens </h5>
               <Chart type="line" :data="lineData" :options="lineOptions" />
           </div>
       </div>
@@ -230,6 +294,14 @@ export default {
         <Button label="Run Hello World" class="mr-2 mb-2" @click="updateData" />
         <Button label="Fetch Geoloc" class="mr-2 mb-2" @click="fetchData" />
         <Button label="Fetch Visit" class="mr-2 mb-2" @click="fetchVisits" />
+        <Button label="GENERATE VISITS" class="mr-2 mb-2" @click="genVisits" />
+    </div>
+    <div class="card">
+        <h5>Serverless Functions</h5>
+        <Button label="Visitors per day" class="mr-2 mb-2" @click="getVisitorsPerDay" />
+        <Button label="Visits per day" class="mr-2 mb-2" @click="getVisitsPerDay" />
+        <Button label="Avg Duration" class="mr-2 mb-2" @click="getVisitAvgDuration" />
+        <Button label="Total Amount" class="mr-2 mb-2" @click="getVisitTotalAmount" />
     </div>
 
     <div class="card">
