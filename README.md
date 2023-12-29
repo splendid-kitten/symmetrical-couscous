@@ -4,6 +4,7 @@ Petit devoir à réaliser dans le cadre d'une entrevue technique avec Propulso. 
 
 Le répertoire suivant contient les différents éléments de la solution et le CI est configurer afin d'aider au développement. 
 
+__Si vous avez des questions, n'hésitez pas à m'écrire.__
 ## Objectifs
 
 Le but est d'extraire les métriques suivantes à partir d'un jeu de donneés de déplacement:
@@ -76,7 +77,7 @@ Le projet est créé dans mon organisation sur Github afin de profiter des _runn
 
 ### Traitement des données
 
-Afin de pouvoir m'amuser avec les technologies, j'ai réalisé le traitement des données à l'aide d'une fonction serverless. Je suis conscient qu'il y a d'autre façons de gérer les données brutes utilisées par le système, mais  
+Afin de pouvoir m'amuser avec les technologies, j'ai réalisé le traitement des données à l'aide d'une fonction serverless. Je suis conscient qu'il y a d'autre façons de gérer les données brutes utilisées par le système sans que ce ne soit liée dans le UI, mais ça me permettait d'expérimenter avec certaines fonctionnalitées.
 
 Celle-ci récupère la collection de données correspondant aux données initiales du problème en les triant selon le temps.
 
@@ -102,7 +103,6 @@ Chaque visite est ensuite envoyé dans la base de données dans une nouvelle col
 La durée moyenne d'une visite, le nombre total de visites et finalement un graphique qui montre le nombre de visites et le nombre de visiteurs à chaque jour. L'affichage est plus ou moins intéressant considérant qu'il n'y a que deux jours de données.
 
 ![Visits Table](https://github.com/splendid-kitten/symmetrical-couscous/blob/main/assets/dashboard.png)
-
 
 ## Documentation / Sources
 
