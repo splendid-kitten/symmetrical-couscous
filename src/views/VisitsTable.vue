@@ -6,7 +6,6 @@ import { ref, onMounted, onBeforeMount } from 'vue';
 import axios from 'axios';
 
 const visits = ref(null);
-const selectedVisits = ref(null);
 const dt = ref(null);
 const filters = ref({});
 
@@ -71,7 +70,6 @@ const initFilters = () => {
                 <DataTable
                     ref="dt"
                     :value="visits"
-                    v-model:selection="selectedVisits"
                     dataKey="id"
                     :paginator="true"
                     :rows="10"
@@ -91,7 +89,6 @@ const initFilters = () => {
                         </div>
                     </template>
 
-                    <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
                     <Column field="propulso_id" header="ID" :sortable="true" headerStyle="width:14%; min-width:10rem;">
                         <template #body="slotProps">
                             <span class="p-column-title">ID</span>

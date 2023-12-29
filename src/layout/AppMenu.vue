@@ -15,7 +15,7 @@ const model = ref([
             {
                 label: 'Tableau des visites',
                 icon: 'pi pi-fw pi-table',
-                to: '/pages/visits'
+                to: '/visits'
             }
         ]  
     }

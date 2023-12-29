@@ -14,9 +14,9 @@ const router = createRouter({
                     component: () => import('@/views/Dashboard.vue')
                 },
                 {
-                    path: '/pages/visits',
+                    path: '/visits',
                     name: 'visits table',
-                    component: () => import('@/views/pages/VisitsTable.vue')
+                    component: () => import('@/views/VisitsTable.vue')
                 }
             ]
         }    
