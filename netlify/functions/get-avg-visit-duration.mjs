@@ -13,7 +13,7 @@ export const handler = async (context) => {
       useUnifiedTopology: true,
     });
 
-    // Fetch the geolocData collection
+    // Get the average visit duration
     const avgDuration = await VisitData.aggregate([
       {
         $group: {

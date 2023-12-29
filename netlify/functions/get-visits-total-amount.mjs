@@ -13,7 +13,7 @@ export const handler = async (context) => {
       useUnifiedTopology: true,
     });
 
-    // Fetch the geolocData collection
+    // Count the number of documents in the VisitData collection
     const count = await VisitData.countDocuments();
 
     return {

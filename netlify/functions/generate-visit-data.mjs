@@ -15,6 +15,7 @@ export const handler = async (context) => {
       useUnifiedTopology: true,
     });
 
+    // Get all the geoloc data sorted by date and time
     const geolocData = await GeolocData.find().sort({ date: 1, time: 1 }); // Sort by date and time
 
     // Temp visits array

@@ -13,7 +13,7 @@ export const handler = async (context) => {
       useUnifiedTopology: true,
     });
 
-    // Fetch the geolocData collection
+    // Getting unique propulso_id per day
     const uniquePropulsoIdPerDay = await VisitData.aggregate([
       {
         $group: {

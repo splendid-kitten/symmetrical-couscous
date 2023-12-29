@@ -13,7 +13,7 @@ export const handler = async (event, context) => {
       useUnifiedTopology: true,
     });
 
-    // Fetch the geolocData collection
+    // Get the number of visits per day
     const visitsPerDay = await VisitData.aggregate([
       {
         $group: {
