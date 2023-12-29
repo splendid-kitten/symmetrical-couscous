@@ -8,13 +8,14 @@ const model = ref([
         label: 'Home',
         items: [
             { 
-                label: 'Dashboard', 
-                icon: 'pi pi-fw pi-home', 
-                to: '/' },
+                label: 'Tableau de bord', 
+                icon: 'pi pi-fw pi-chart-line', 
+                to: '/' 
+            },
             {
-                label: 'Crud',
-                icon: 'pi pi-fw pi-pencil',
-                to: '/pages/crud'
+                label: 'Tableau des visites',
+                icon: 'pi pi-fw pi-table',
+                to: '/pages/visits'
             }
         ]  
     }

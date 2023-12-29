@@ -11,12 +11,9 @@ const logoUrl = computed(() => {
 
 <template>
     <div class="layout-footer">
-        by 
-        <span class="font-medium ml-2">splendid-kitten </span>
-        based on 
-        <span class="font-medium ml-2">PrimeVue</span>
+        <span class="font-medium ml-2">by splendid-kitten based on PrimeVue </span>
         <img :src="logoUrl" alt="Logo" height="20" class="mr-2" />
-
     </div>
 </template>
+
 <style lang="scss" scoped></style>

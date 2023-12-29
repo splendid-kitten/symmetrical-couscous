@@ -1,8 +1,5 @@
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
-import { useLayout } from '@/layout/composables/layout';
-
-const { layoutConfig, onMenuToggle } = useLayout();
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 
 const outsideClickListener = ref(null);
 const topbarMenuActive = ref(false);
@@ -14,11 +11,6 @@ onMounted(() => {
 onBeforeUnmount(() => {
     unbindOutsideClickListener();
 });
-
-const logoUrl = computed(() => {
-    return `layout/images/${layoutConfig.darkTheme.value ? 'logo-white' : 'logo-dark'}.svg`;
-});
-
 
 const bindOutsideClickListener = () => {
     if (!outsideClickListener.value) {
@@ -49,8 +41,7 @@ const isOutsideClicked = (event) => {
 <template>
     <div class="layout-topbar">
         <router-link to="/" class="layout-topbar-logo">
-            <img :src="logoUrl" alt="logo" />
-            <span>Symmetrical Couscous</span>
+            <span> Symmetrical Couscous</span>
         </router-link>
 
         <button class="p-link layout-menu-button layout-topbar-button" @click="onMenuToggle()">

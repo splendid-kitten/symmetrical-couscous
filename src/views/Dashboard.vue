@@ -241,7 +241,7 @@ export default {
 
 <template>
   <div class="grid">
-      <div class="col-12 lg:col-6 xl:col-3">
+      <div class="col-12 lg:col-6 xl:col-6">
           <div class="card mb-0">
               <div class="flex justify-content-between mb-3">
                   <div>
@@ -254,7 +254,7 @@ export default {
               </div>
           </div>
       </div>
-      <div class="col-12 lg:col-6 xl:col-3">
+      <div class="col-12 lg:col-6 xl:col-6">
           <div class="card mb-0">
               <div class="flex justify-content-between mb-3">
                   <div>
@@ -289,24 +289,4 @@ export default {
           </div>
       </div>
     </div>
-    <div class="card">
-        <h5>Serverless Functions</h5>
-        <Button label="Run Hello World" class="mr-2 mb-2" @click="updateData" />
-        <Button label="Fetch Geoloc" class="mr-2 mb-2" @click="fetchData" />
-        <Button label="Fetch Visit" class="mr-2 mb-2" @click="fetchVisits" />
-        <Button label="GENERATE VISITS" class="mr-2 mb-2" @click="genVisits" />
-    </div>
-    <div class="card">
-        <h5>Serverless Functions</h5>
-        <Button label="Visitors per day" class="mr-2 mb-2" @click="getVisitorsPerDay" />
-        <Button label="Visits per day" class="mr-2 mb-2" @click="getVisitsPerDay" />
-        <Button label="Avg Duration" class="mr-2 mb-2" @click="getVisitAvgDuration" />
-        <Button label="Total Amount" class="mr-2 mb-2" @click="getVisitTotalAmount" />
-    </div>
-
-    <div class="card">
-        <h5>Response</h5>
-        <p>Response: {{ response }}</p>
-    </div>
-
 </template>

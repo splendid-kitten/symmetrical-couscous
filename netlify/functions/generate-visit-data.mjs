@@ -5,7 +5,7 @@ const GeolocData = mongoose.model('GeolocData', new mongoose.Schema({}, { strict
 
 const VisitData = mongoose.model('VisitData', new mongoose.Schema({}, { strict: false }), process.env.MONGODB_COLLECTION_VISIT);
 
-export const handler = async (event, context) => {
+export const handler = async (context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   try {
@@ -34,13 +34,13 @@ export const handler = async (event, context) => {
                     lng: data.lng,
                     start_time: data.time,
                     date: data.date,
-                    pingCount: 1,
+                    ping_count: 1,
                 };
             } else { 
                 // Update the existing visit
                 currentVisits[data.propulso_id].lat += data.lat;
                 currentVisits[data.propulso_id].lng += data.lng;
-                currentVisits[data.propulso_id].pingCount += 1;
+                currentVisits[data.propulso_id].ping_count += 1;
             } 
         } else if (currentVisits[data.propulso_id]) {
             // End the current visit if the delta_time is not 0 and the visit exists in the temp array
@@ -54,8 +54,8 @@ export const handler = async (event, context) => {
 
             currentVisit.duration = (endTime - startTime) / 1000;
 
-            currentVisit.lat /= currentVisit.pingCount;
-            currentVisit.lng /= currentVisit.pingCount;
+            currentVisit.lat /= currentVisit.ping_count;
+            currentVisit.lng /= currentVisit.ping_count;
             visits.push(currentVisit);
 
             // Remove the visit from currentVisits
@@ -73,8 +73,8 @@ export const handler = async (event, context) => {
         const endTime = new Date(`${geolocData[geolocData.length - 1].date}T${currentVisit.end_time}Z`);
         currentVisit.duration = (endTime - startTime) / 1000;
 
-        currentVisit.lat /= currentVisit.pingCount;
-        currentVisit.lng /= currentVisit.pingCount;
+        currentVisit.lat /= currentVisit.ping_count;
+        currentVisit.lng /= currentVisit.ping_count;
         visits.push(currentVisit);
     }
 

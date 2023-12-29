@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 import mongoose from 'mongoose';
 
-const GeolocData = mongoose.model('GeolocData', new mongoose.Schema({}, { strict: false }), process.env.MONGODB_COLLECTION_GEOLOC);
+const VisitData = mongoose.model('VisitData', new mongoose.Schema({}, { strict: false }), process.env.MONGODB_COLLECTION_VISIT);
 
-export const handler = async (event, context) => {
+export const handler = async (context) => {
   context.callbackWaitsForEmptyEventLoop = false;
 
   try {
@@ -13,8 +13,8 @@ export const handler = async (event, context) => {
       useUnifiedTopology: true,
     });
 
-    // Fetch the geolocData collection
-    const data = await GeolocData.find().limit(10);
+    // Fetch the visits collection
+    const data = await VisitData.find();
 
     return {
       statusCode: 200,
