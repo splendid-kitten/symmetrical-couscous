@@ -1,6 +1,6 @@
 # symmetrical-couscous
 
-Petit devoir à réaliser dans le cadre d'une entrevue technique avec Propulso. La présente solution permet de prétraiter des données de géolocalisation afin de visualiser certaines métriques dans un interface en __[VueJS](https://vuejs.org/)__.
+Petit devoir à réaliser dans le cadre d'une entrevue technique. La présente solution permet de prétraiter des données de géolocalisation afin de visualiser certaines métriques dans un interface en __[VueJS](https://vuejs.org/)__.
 
 Le répertoire suivant contient les différents éléments de la solution et le CI est configurer afin d'aider au développement. 
 
