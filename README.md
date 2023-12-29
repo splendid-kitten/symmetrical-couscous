@@ -104,3 +104,7 @@ La durée moyenne d'une visite, le nombre total de visites et finalement un grap
 ![Visits Table](https://github.com/splendid-kitten/symmetrical-couscous/blob/main/assets/dashboard.png)
 
 
+## Documentation / Sources
+
+- [PrimeVue Example Sakai-Vue](https://github.com/primefaces/sakai-vue) : Exemple de dashboard utilisant les éléments UI de PrimeVue;
+- [PrimeIcons](https://github.com/primefaces/primeicons) : Icônes
