@@ -48,8 +48,13 @@ npm install
 
 Afin de pouvoir exécuter les fonctions _serverless_ de Netlify, l'application est démarrée à l'aide du __[Netlify CLI](https://www.netlify.com/platform/core/cli/)__.
 
+Il faut ensuite lier le projet à un projet sur Netlify à l'aide de la commande (je ne suis pas certain encore de la procédure complète pour les projets collaboratif en développement sur Netlify)
 
-Configurer les variables d'environnement de netlify
+``` powershell
+netlify link
+```
+
+On peut ensuite configurer les variables d'environnement de Netlify
 ``` powershell
 netlify env:set MONGODB_URI mongodb://localhost:27017/symmetrical-couscous
 netlify env:set MONGODB_COLLECTION_GEOLOC geolocData
